@@ -42,9 +42,8 @@ const Header = (title, date, temp) => {
   //
 
 const headerAppender = (selector) => {
-  return Header.appendChild(selector);
+  const info = document.querySelector(selector);
+  info.appendChild(Header('Lambda Times','9/3/2021','77'))
 }
 
 export { Header, headerAppender }
-
-console.log(Header('Adam','12','12'));

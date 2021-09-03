@@ -1,4 +1,4 @@
-const Card = (article) => {
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -17,9 +17,38 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
+
+import axios from "axios";
+
+
+
+
+const Card = (article) => {
+  const crd = document.createElement('div');
+  const hdln = document.createElement('div');
+  const athr = document.createElement('div');
+  const imgc = document.createElement('div');
+  const phto = document.createElement('img');
+  const name = document.createElement('span');
+
+  crd.classList.add('card');
+  hdln.classList.add('headline');
+  athr.classList.add('author');
+  imgc.classList.add('img-container');
+
+  hdln.textContent = article.headline;
+  phto.src = article.authorPhoto;
+  name.textContent = article.authorName
+
+  crd.appendChild(hdln);
+  crd.appendChild(athr);
+  athr.appendChild(imgc);
+  athr.appendChild(name);
+  imgc.appendChild(phto);
+
+  return crd;
 }
 
-const cardAppender = (selector) => {
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -28,6 +57,32 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
-}
+
+const cardAppender = (selector) => {
+  const holysmokes = document.querySelector(selector)
+  axios.get('http://localhost:5000/api/articles')
+  .then(res => {
+    const shabeenza = res.data;
+    const beenzaStrap = shabeenza.articles.bootstrap;
+    const jbeenza = shabeenza.articles.javascript;
+    const jshabeenza = shabeenza.articles.jquery;
+    const beenzaNode = shabeenza.articles.node;
+    const techbeenza = shabeenza.articles.technology;
+
+    function beastmode(dragonballs){
+      dragonballs.forEach(element => {
+         const yaboi = Card(element);
+         holysmokes.appendChild(yaboi)
+      })
+      }
+      beastmode(beenzaStrap);
+      beastmode(jbeenza);
+      beastmode(jshabeenza);
+      beastmode(beenzaNode);
+      beastmode(techbeenza);
+    }
+  )}
+
+
 
 export { Card, cardAppender }
